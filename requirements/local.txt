@@ -6,17 +6,34 @@
 #
 asgiref==3.8.1
     # via django
+certifi==2025.4.26
+    # via
+    #   cloudinary
+    #   requests
+charset-normalizer==3.4.2
+    # via requests
+cloudinary==1.44.0
+    # via django-cloudinary-storage
 django==5.2.2
     # via
     #   -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
     #   django-debug-toolbar
     #   djangorestframework
+    #   djangorestframework-simplejwt
+django-cloudinary-storage==0.3.0
+    # via -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
 django-debug-toolbar==5.2.0
     # via -r in/local.in
 django-environ==0.12.0
     # via -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
 djangorestframework==3.16.0
+    # via
+    #   -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
+    #   djangorestframework-simplejwt
+djangorestframework-simplejwt==5.5.0
     # via -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
+idna==3.10
+    # via requests
 iniconfig==2.1.0
     # via pytest
 packaging==25.0
@@ -29,13 +46,23 @@ psycopg2-binary==2.9.10
     # via -r in/local.in
 pygments==2.19.1
     # via pytest
+pyjwt==2.9.0
+    # via djangorestframework-simplejwt
 pytest==8.4.0
     # via pytest-django
 pytest-django==4.11.1
     # via -r in/local.in
+requests==2.32.4
+    # via django-cloudinary-storage
+six==1.17.0
+    # via cloudinary
 sqlparse==0.5.3
     # via
     #   django
     #   django-debug-toolbar
+urllib3==2.4.0
+    # via
+    #   cloudinary
+    #   requests
 whitenoise==6.9.0
     # via -r /home/iamcerebrocerberus/Dev/Workspace/sideprojects/imageupload-api/requirements/in/base.in
