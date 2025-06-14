@@ -7,6 +7,9 @@ ENV PYTHONUNBUFFERED 1
 ENV DJANGO_SETTINGS_MODULE=config.settings.production
 ENV SECRET_KEY=dummy-build-secret
 ENV DATABASE_URL=postgres://user:pass@localhost:5432/dbname
+ENV CLOUDINARY_CLOUD_NAME=dummy
+ENV CLOUDINARY_API_KEY=dummy
+ENV CLOUDINARY_API_SECRET=dummy
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
