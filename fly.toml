@@ -21,3 +21,10 @@ primary_region = 'lhr'
 
 [deploy]
   release_command = "python manage.py collectstatic --noinput"
+
+[[statics]]
+  guest_path = "/code/staticfiles"
+  url_prefix = "/static"
+
+[env]
+  DJANGO_SETTINGS_MODULE = "config.settings.production"
