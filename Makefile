@@ -13,8 +13,14 @@ makemigrations:
 dep-prod:
 	pip-compile requirements/in/production.in -o requirements/production.txt
 
+dep-ci:
+	pip-compile requirements/in/ci.in -o requirements/ci.txt
+
 install-local:
 	python -m pip install -r requirements/local.txt
 
 install-prod:
 	python -m pip install -r requirements/local.txt
+
+install-ci:
+	python -m pip install -r requirements/ci.txt
