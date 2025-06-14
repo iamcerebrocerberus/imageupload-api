@@ -11,7 +11,6 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from core.models import UploadedImage
 
 User = get_user_model()
-
 TEMP_MEDIA_ROOT = tempfile.mkdtemp()
 
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
@@ -22,7 +21,7 @@ class UploadedImageModelTest(TestCase):
         self.user = User.objects.create_user(username="testuser", password="password")
         self.fake_image = SimpleUploadedFile(
             name='test_image.jpg',
-            content=b'someimagebytes',
+            content=b'\xff\xd8\xff\xe0',  # mock JPEG file header
             content_type='image/jpeg'
         )
 
@@ -32,7 +31,6 @@ class UploadedImageModelTest(TestCase):
             shutil.rmtree(TEMP_MEDIA_ROOT)
 
     def test_uploaded_image_creation(self, mock_upload):
-        # Mock Cloudinary's response
         mock_upload.return_value = {
             "url": "http://res.cloudinary.com/demo/image/upload/v1234/test_image.jpg",
             "secure_url": "https://res.cloudinary.com/demo/image/upload/v1234/test_image.jpg",
@@ -50,6 +48,7 @@ class UploadedImageModelTest(TestCase):
 
         self.assertIsInstance(image.uuid, UUID)
         self.assertEqual(image.user, self.user)
-        self.assertIn("uploads/", image.image.public_id)
+        self.assertIn("uploads", image.image.name)  # Correct check
+        self.assertTrue(image.image.url.startswith("http"))
         self.assertTrue(str(image).startswith(str(image.uuid)))
         self.assertIsNone(image.analyzed_text)
