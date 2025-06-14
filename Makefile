@@ -9,3 +9,12 @@ migrate:
 
 makemigrations:
 	python manage.py makemigrations --settings=config.settings.local
+
+dep-prod:
+	pip-compile requirements/in/production.in -o requirements/production.txt
+
+install-local:
+	python -m pip install -r requirements/local.txt
+
+install-prod:
+	python -m pip install -r requirements/local.txt

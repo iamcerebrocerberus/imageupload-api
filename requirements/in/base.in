@@ -5,3 +5,4 @@ pillow==11.2.1
 whitenoise==6.9.0
 djangorestframework-simplejwt
 django-cloudinary-storage==0.3.0
+drf-spectacular==0.28.0

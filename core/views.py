@@ -4,9 +4,11 @@ from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser
 from rest_framework import status
+from drf_spectacular.utils import extend_schema
 from .models import UploadedImage
 from .serializers import UploadedImageSerializer
 
+@extend_schema(exclude=True)
 class Home(APIView):
     permission_classes = [AllowAny]
 
