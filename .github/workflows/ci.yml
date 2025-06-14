@@ -43,13 +43,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements/ci.txt
 
-      - name: Run Ruff (linter)
-        run: ruff .
+      - name: Run Ruff
+        run: ruff check .
 
-      - name: Run Tests (Pytest)
+      - name: Run Tests
         run: pytest
 
-      - name: Deploy to Fly.io (only on push to main)
+      - name: Deploy to Fly.io
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         uses: superfly/flyctl-actions@1.5
         with:
