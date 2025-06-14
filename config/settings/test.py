@@ -11,3 +11,9 @@ DATABASES = {
 }
 # Override Cloudinary storage with local file storage
 DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+# Add dummy Cloudinary credentials to satisfy import-time check
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "dummy",
+    "API_KEY": "dummy",
+    "API_SECRET": "dummy",
+}
