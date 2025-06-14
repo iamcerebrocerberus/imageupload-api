@@ -9,3 +9,5 @@ DATABASES = {
         "NAME": ":memory:",
     }
 }
+# Override Cloudinary storage with local file storage
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

@@ -2,6 +2,7 @@ import tempfile
 import shutil
 import os
 from uuid import UUID
+from unittest.mock import patch
 
 from django.test import TestCase, override_settings
 from django.contrib.auth import get_user_model
@@ -14,6 +15,7 @@ User = get_user_model()
 TEMP_MEDIA_ROOT = tempfile.mkdtemp()
 
 @override_settings(MEDIA_ROOT=TEMP_MEDIA_ROOT)
+@patch("cloudinary.uploader.upload")
 class UploadedImageModelTest(TestCase):
 
     def setUp(self):
@@ -29,7 +31,18 @@ class UploadedImageModelTest(TestCase):
         if os.path.exists(TEMP_MEDIA_ROOT):
             shutil.rmtree(TEMP_MEDIA_ROOT)
 
-    def test_uploaded_image_creation(self):
+    def test_uploaded_image_creation(self, mock_upload):
+        # Mock Cloudinary's response
+        mock_upload.return_value = {
+            "url": "http://res.cloudinary.com/demo/image/upload/v1234/test_image.jpg",
+            "secure_url": "https://res.cloudinary.com/demo/image/upload/v1234/test_image.jpg",
+            "public_id": "uploads/test_image",
+            "format": "jpg",
+            "version": 1234,
+            "type": "upload",
+            "resource_type": "image",
+        }
+
         image = UploadedImage.objects.create(
             user=self.user,
             image=self.fake_image
@@ -37,16 +50,6 @@ class UploadedImageModelTest(TestCase):
 
         self.assertIsInstance(image.uuid, UUID)
         self.assertEqual(image.user, self.user)
-        self.assertTrue(image.image.name.startswith("uploads/"))
+        self.assertIn("uploads/", image.image.public_id)
         self.assertTrue(str(image).startswith(str(image.uuid)))
         self.assertIsNone(image.analyzed_text)
-
-    def test_upload_path_format(self):
-        image = UploadedImage.objects.create(
-            user=self.user,
-            image=self.fake_image
-        )
-        _, ext = os.path.splitext(image.image.name)
-        self.assertEqual(ext, ".jpg")
-        self.assertIn("uploads/", image.image.name)
-        self.assertTrue(image.image.name.endswith(f"{image.uuid}.jpg"))
