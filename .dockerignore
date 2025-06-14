@@ -1,0 +1,12 @@
+.git
+.env
+fly.toml
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+*.sqlite3
+staticfiles/
+media/

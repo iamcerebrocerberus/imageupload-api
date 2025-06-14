@@ -1,0 +1,15 @@
+[tool.ruff]
+line-length = 120
+exclude = [
+    ".venv",
+    "venv",
+    "migrations",
+    "__pycache__",
+    ".git",
+    "static",
+    "media",
+]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["F403", "F405"]
