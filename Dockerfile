@@ -22,8 +22,6 @@ RUN pip install -r requirements/production.txt
 # Copy project files
 COPY . /code/
 
-# Collect static files
-RUN python manage.py collectstatic --noinput
 
 # Run the app with Gunicorn on Fly's expected port
 CMD ["gunicorn", "--bind", ":8080", "--workers", "2", "config.wsgi"]
